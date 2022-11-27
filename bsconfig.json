@@ -1,0 +1,13 @@
+{
+    "name": "base.dtoo",
+    "sources": {
+      "dir": "frontend",
+      "subdirs": true
+    },
+    "package-specs": {
+      "module": "commonjs",
+      "in-source": true
+    },
+    "suffix": ".bs.js",
+    "bs-dependencies": []
+  }

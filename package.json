@@ -1,0 +1,22 @@
+{
+  "name": "base.dtoo",
+  "version": "0.0.1",
+  "scripts": {
+    "res:build": "rescript",
+    "res:clean": "rescript clean",
+    "res:start": "rescript build -w",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "description": "dpeyou's template",
+  "main": "server.js",
+  "keywords": [
+    "web",
+    "app"
+  ],
+  "author": "Darren Peyou-Ndi",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0"
+  }
+}
