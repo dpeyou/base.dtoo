@@ -13,3 +13,8 @@ module Button = {
     <button> {msg->React.string} </button>
   }
 }
+
+switch(ReactDOM.querySelector("body")) {
+| Some(body) => ReactDOM.render(<Button count=0 />, body)
+| None => ()
+};
