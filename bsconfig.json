@@ -5,9 +5,10 @@
       "subdirs": true
     },
     "package-specs": {
-      "module": "commonjs",
+      "module": "es6",
       "in-source": true
     },
     "suffix": ".bs.js",
-    "bs-dependencies": []
+    "jsx": { "version": 4, "mode": "classic" },
+    "bs-dependencies": ["@rescript/react"]
   }
