@@ -12,8 +12,7 @@
   "description": "dpeyou's template",
   "main": "server.js",
   "keywords": [
-    "web",
-    "app"
+    "webapp"
   ],
   "author": "Darren Peyou-Ndi",
   "license": "ISC",
