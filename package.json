@@ -20,6 +20,7 @@
     "@rescript/react": "^0.10.3",
     "esbuild": "^0.15.16",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "rescript": "^10.0.1"
   }
 }
