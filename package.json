@@ -2,7 +2,7 @@
   "name": "base.dtoo",
   "version": "0.0.1",
   "scripts": {
-    "esb:bundle": "esbuild frontend/index.bs.js --bundle --outfile=frontend/bundle.esbuild.js",
+    "esb:bundle": "esbuild frontend/Index.bs.js --bundle --outfile=frontend/bundle.esbuild.js",
     "res:build": "rescript",
     "res:clean": "rescript clean",
     "res:start": "rescript build -w",

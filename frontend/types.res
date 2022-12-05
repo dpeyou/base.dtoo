@@ -14,6 +14,6 @@ type observerOptions = {
   subtree: bool /* in all descendants of node */
 }
 
-type window = {
-	onresize: (int, unit) => unit
-}
+type theme =
+| Dark
+| Light;
