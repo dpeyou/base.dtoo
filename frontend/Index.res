@@ -1,63 +1,73 @@
-
 module App = {
 	let initialScreenWidth: int = %raw("window.document.body.clientWidth");
 	let mediaQueryWidth: int = 700;
 	let onResize: (unit => unit) => unit = _function => %raw("window.onresize = _function")
 
 	type state = {
-		//count: int,
 		layout: Types.layout,
 		theme: Types.theme,
 	}
 
 	type action =
-	//| Tick
 	| UpdateLayout(int)
+	| UpdateTheme(Types.theme)
 
 	@react.component
 	let make = () => {
 		let (state, dispatch) = React.useReducer(
 			(state, action) => {
 				switch action {
-				//| Tick => {...state, count: state.count + 1}
 				| UpdateLayout(screenWidth) =>
 					{ Js.log2("de witt iz: ", screenWidth)}
 					{...state, layout: screenWidth < mediaQueryWidth ? Portrait : Landscape}
-				}
+
+				| UpdateTheme(theme) =>
+					{...state, theme}
+
+				} // end switch action
 			},
 			// -- initial state
 			{
-				//count: 0, related to Tick action
 				layout: initialScreenWidth < mediaQueryWidth ? Portrait : Landscape,
 				theme: Dark,
 			},
-		)
+		);
 
-		// window.onresize
+		// window.onresize 
 		onResize(() => dispatch(UpdateLayout(%raw("window.document.body.clientWidth"))))
+		
+		// inline styles
+		let style = ReactDOM.Style.make(
+			~background=Theme.appBackground(state.theme),
+			~bottom="0",
+			~color="red",
+			~left="0",
+			~position="absolute",
+			~right="0",
+			~top="0",
+			(),
+		);
 
-		/* useEffect hook takes 0 arguments hence, useEffect0 */
-		/*
-		React.useEffect0(() => {
-			let timerId = Js.Global.setInterval(() => dispatch(Tick), 1000)
-			Some(() => Js.Global.clearInterval(timerId))
-		})
-		*/
 
 		// -- VIEW
-
-		<>
+		<div id="App" style>
 			<h1> {"base.dtoo"->React.string} </h1>
+			<button 
+			onClick={_event=>{
+				state.theme == Dark ? dispatch(UpdateTheme(Light)) :
+				  dispatch(UpdateTheme(Dark))
+			}}>
+			{"Toggle_Theme"->React.string}</button>
 			{switch state.layout {
-			| Portrait => <footer> {"Dis da foota"->React.string} </footer>
+			| Portrait => <Navbar theme=state.theme/>
 			| Landscape => <> </>
 			}}
-		</>
+		</div>
+		
 	}
 }
 
 // -- RENDER-TO-HTML FUNCTION
-
 switch ReactDOM.querySelector("#appContainer") {
 | Some(node: Dom.element) =>
 	ReactDOM.Client.createRoot(node) |> (root => ReactDOM.Client.Root.render(root, <App />))
