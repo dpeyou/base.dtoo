@@ -55,8 +55,10 @@ module App = {
 			<button 
 			onClick={_event=>{
 				state.theme == Dark ? dispatch(UpdateTheme(Light)) :
-				  dispatch(UpdateTheme(Dark))
-			}}>
+				  dispatch(UpdateTheme(Dark)) 
+			}
+			|> () => LocalStorage.setItem("theme", "Dark");
+			}>
 			{"Toggle_Theme"->React.string}</button>
 			{switch state.layout {
 			| Portrait => <Navbar theme=state.theme/>
