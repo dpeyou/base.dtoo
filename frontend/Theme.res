@@ -17,7 +17,7 @@ let buttonBackground = theme => switch(theme) {
 	| Light => "#ffffe9"
 }
 
-let buttonColor = theme => switch(theme) {
-  | Dark => "#4f391c"
-	| Light => "#001"
+let scrollviewBackground = theme => switch(theme) {
+  | Dark => "#eed0d0"
+	| Light => "#eff"
 }

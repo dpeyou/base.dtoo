@@ -3,7 +3,12 @@ module App = {
     | Landscape
     | Portrait
 
+  type page =
+    | Home
+    | Projects
+
   type state = {
+    page: page,
     layout: layout,
     theme: Theme.theme,
   }
@@ -39,6 +44,7 @@ module App = {
       // -- initial state
       {
         layout: initialScreenWidth < mediaQueryWidth ? Portrait : Landscape,
+        page: Home,
         theme: switch LocalStorage.getItem("theme") {
         | "Dark" => Dark
         | "Light" => Light
@@ -70,6 +76,7 @@ module App = {
     // -- VIEW
     <div id="App" style>
       <h1> {"base.dtoo"->React.string} </h1>
+      <Home theme=state.theme/>
       <Button onClick=toggleTheme theme=state.theme> {"Toggle_Theme"->React.string} </Button>
       {switch state.layout {
       | Portrait => <Navbar theme=state.theme />

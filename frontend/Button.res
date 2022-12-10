@@ -39,16 +39,10 @@ let make = (
     },
   )
 
-  /*
-	let _x = React.useEffect0(() => {
-		let timerId = Js.Global.setInterval(() => dispatch(ShrinkButton), 200)
-		Some(() => Js.Global.clearInterval(timerId))
-	})*/
-
   // use this to detect changes to state.transform & trigger another action
   if state.transform === "scale(1.15)" {
-    let action: unit => unit = () => {dispatch(ShrinkButton)}
-    setTimeout(action, 175)
+    let function: unit => unit = () => {dispatch(ShrinkButton)};
+    setTimeout(function, 125);
   }
 
   let buttonClick: ReactEvent.Mouse.t => unit = {_event => dispatch(GrowButton) |> onClick}
@@ -66,7 +60,7 @@ let make = (
     ~right,
     ~top,
     ~transform=state.transform,
-    ~transition="175ms",
+    ~transition="125ms",
     ~width,
     (),
   )
