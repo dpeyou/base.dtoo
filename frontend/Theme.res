@@ -8,6 +8,16 @@ let appBackground = theme => switch(theme) {
 }
 
 let appColor = theme => switch(theme) {
-  | Dark => "#ffc"
+  | Dark => "#fed"
+	| Light => "#001"
+}
+
+let buttonBackground = theme => switch(theme) {
+  | Dark => "#ffe0a0"
+	| Light => "#ffffe9"
+}
+
+let buttonColor = theme => switch(theme) {
+  | Dark => "#4f391c"
 	| Light => "#001"
 }

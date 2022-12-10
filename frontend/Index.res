@@ -3,10 +3,6 @@ module App = {
     | Landscape
     | Portrait
 
-  let initialScreenWidth: int = %raw("window.document.body.clientWidth")
-  let mediaQueryWidth: int = 700
-  let onResize: (unit => unit) => unit = _function => %raw("window.onresize = _function")
-
   type state = {
     layout: layout,
     theme: Theme.theme,
@@ -15,6 +11,10 @@ module App = {
   type action =
     | UpdateLayout(int)
     | UpdateTheme(Theme.theme)
+
+  let initialScreenWidth: int = %raw("window.document.body.clientWidth")
+  let mediaQueryWidth: int = 700
+  let onResize: (unit => unit) => unit = _function => %raw("window.onresize = _function")
 
   @react.component
   let make = () => {
@@ -51,7 +51,7 @@ module App = {
     // onResize: (unit => unit) => unit
     onResize(() => dispatch(UpdateLayout(%raw("window.document.body.clientWidth"))))
 
-    let toggleTheme: ReactEvent.Mouse.t => unit = _event => {
+    let toggleTheme: unit => unit = () => {
       state.theme == Dark ? dispatch(UpdateTheme(Light)) : dispatch(UpdateTheme(Dark))
     }
 
@@ -70,7 +70,7 @@ module App = {
     // -- VIEW
     <div id="App" style>
       <h1> {"base.dtoo"->React.string} </h1>
-      <button onClick=toggleTheme> {"Toggle_Theme"->React.string} </button>
+      <Button onClick=toggleTheme theme=state.theme> {"Toggle_Theme"->React.string} </Button>
       {switch state.layout {
       | Portrait => <Navbar theme=state.theme />
       | Landscape => <> </>
@@ -80,7 +80,7 @@ module App = {
 }
 
 // -- RENDER-TO-HTML FUNCTION
-switch ReactDOM.querySelector("#appContainer") {
+switch ReactDOM.querySelector("#AppContainer") {
 | Some(node: Dom.element) =>
   ReactDOM.Client.createRoot(node) |> (root => ReactDOM.Client.Root.render(root, <App />))
 
