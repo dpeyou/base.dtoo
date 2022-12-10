@@ -3,18 +3,15 @@ module App = {
     | Landscape
     | Portrait
 
-  type page =
-    | Home
-    | Projects
-
   type state = {
-    page: page,
+    page: Header.page,
     layout: layout,
     theme: Theme.theme,
   }
 
   type action =
     | UpdateLayout(int)
+    | UpdatePage(Header.page)
     | UpdateTheme(Theme.theme)
 
   let initialScreenWidth: int = %raw("window.document.body.clientWidth")
@@ -29,6 +26,15 @@ module App = {
         | UpdateLayout(screenWidth) =>
           {Js.log2("de witt iz: ", screenWidth)}
           {...state, layout: screenWidth < mediaQueryWidth ? Portrait : Landscape}
+
+        | UpdatePage(page) => {
+          switch page {
+          | Home =>  LocalStorage.setItem("page", "Home")
+          | Projects =>  LocalStorage.setItem("page", "Projects")
+          }
+        }
+
+        { ...state, page}
 
         | UpdateTheme(theme) =>
           {
@@ -75,7 +81,7 @@ module App = {
 
     // -- VIEW
     <div id="App" style>
-      <h1> {"base.dtoo"->React.string} </h1>
+      <Header page=state.page theme=state.theme />
       <Home theme=state.theme/>
       <Button onClick=toggleTheme theme=state.theme> {"Toggle_Theme"->React.string} </Button>
       {switch state.layout {

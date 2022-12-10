@@ -4,12 +4,12 @@ type theme =
 
 let appBackground = theme => switch(theme) {
   | Dark => "#4f391c"
-	| Light => "#ffe0e0"
+	| Light => "#fff"
 }
 
 let appColor = theme => switch(theme) {
   | Dark => "#fed"
-	| Light => "#001"
+	| Light => "#000"
 }
 
 let buttonBackground = theme => switch(theme) {
@@ -18,6 +18,16 @@ let buttonBackground = theme => switch(theme) {
 }
 
 let scrollviewBackground = theme => switch(theme) {
-  | Dark => "#eed0d0"
-	| Light => "#eff"
+  | Dark => "#6f593c"  //"#eed0d0" // pinkish
+	| Light => "#f2e7e4"
+}
+
+let scrollviewColor = theme => switch(theme) {
+  | Dark => "#fed"
+	| Light => "#001"
+}
+
+let scrollviewBorder = theme => switch(theme) {
+  | Dark => "2px solid #000"
+	| Light => "2px solid #000"
 }
