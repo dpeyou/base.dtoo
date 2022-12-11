@@ -3,9 +3,14 @@ type action = GetScrollTop(int)
 
 @react.component
 let make = (
+  ~theme: Theme.theme, /*the following 2use this prop for default value*/
+  ~background=Theme.scrollviewBackground(theme),
+  ~color=Theme.appColor(theme),
+  //
   ~bottom="",
   ~children: React.element=<> </>,
   ~className="",
+  ~display="",
   ~fontSize="",
   ~id="",
   ~left="0",
@@ -18,7 +23,6 @@ let make = (
   ~position="absolute",
   ~right="0",
 	~tabIndex:int=0,
-  ~theme: Theme.theme=Dark,
   ~top="",
   ~transform="",
   ~width="initial",
@@ -45,11 +49,12 @@ let make = (
     dispatch(GetScrollTop(%raw("_scroll.target.scrollTop")))
 
   let style = ReactDOM.Style.make(
-    ~background=Theme.scrollviewBackground(theme),
-    ~border=Theme.scrollviewBorder(theme),
+    ~background,
+    ~border="2px solid #000",
     ~borderWidth="2px 0",
     ~bottom,
-    ~color=Theme.scrollviewColor(theme),
+    ~color,
+    ~display,
     ~fontSize,
     ~left,
     ~margin,

@@ -13,6 +13,10 @@ type action =
 
 @react.component
 let make = (
+  ~theme: Theme.theme,
+  ~background=Theme.buttonBackground(theme),
+  ~color="#000",
+
   ~bottom="",
   ~children: React.element=<> </>,
   ~display="flex",
@@ -24,7 +28,6 @@ let make = (
   ~padding="0.35rem",
   ~position="relative",
   ~right="",
-  ~theme: Theme.theme=Dark,
   ~top="",
   ~width="initial",
 ) => {
@@ -50,10 +53,10 @@ let make = (
   let buttonClick: ReactEvent.Mouse.t => unit = {_event => dispatch(GrowButton) |> onClick}
 
   let style = ReactDOM.Style.make(
-    ~background=Theme.buttonBackground(theme),
+    ~background,
     ~border="2px solid",
     ~bottom,
-    ~color="#000",
+    ~color,
     ~display,
     ~fontSize,
     ~height,

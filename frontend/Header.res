@@ -25,6 +25,7 @@ let make = (~isMenuOpen: bool, ~page, ~theme: Theme.theme) => {
   let headingStyle = ReactDOM.Style.make(
     ~bottom="0",
     //~height="2.5rem",
+    ~lineHeight="1.25",
     ~margin="0",
     (),
   )

@@ -42,7 +42,7 @@ module App = {
             }
           }
 
-          {...state, page}
+          {...state, isMenuOpen: false, page}
 
         | UpdateTheme(theme) =>
           {
@@ -72,7 +72,9 @@ module App = {
     // onResize: (unit => unit) => unit
     onResize(() => dispatch(UpdateLayout(%raw("window.document.body.clientWidth"))))
 
-    let toggleMenu: unit=>unit= ()=>dispatch(ToggleMenu(state.isMenuOpen));
+    let _closeMenu: unit => unit = () => dispatch(ToggleMenu(true))
+    let _openMenu: unit => unit = () => dispatch(ToggleMenu(false))
+    let toggleMenu: unit => unit = () => dispatch(ToggleMenu(state.isMenuOpen))
 
     let toggleTheme: unit => unit = () => {
       state.theme == Dark ? dispatch(UpdateTheme(Light)) : dispatch(UpdateTheme(Dark))
@@ -84,6 +86,8 @@ module App = {
       ~bottom="0",
       ~color=Theme.appColor(state.theme),
       ~left="0",
+      ~lineHeight="1.35",
+      ~overflow="hidden",
       ~position="absolute",
       ~right="0",
       ~top="0",
@@ -93,10 +97,10 @@ module App = {
     // -- VIEW
     <div id="App" style>
       <Header isMenuOpen=state.isMenuOpen page=state.page theme=state.theme />
-      <Home theme=state.theme />
-      <Button onClick=toggleTheme theme=state.theme> {"Toggle_Theme"->React.string} </Button>
+      <Home page=state.page theme=state.theme />
+      <Projects page=state.page theme=state.theme />
       {switch state.layout {
-      | Portrait => <Navbar isMenuOpen=state.isMenuOpen theme=state.theme toggleMenu />
+      | Portrait => <Navbar isMenuOpen=state.isMenuOpen navToPage={page=>dispatch(UpdatePage(page))} page=state.page theme=state.theme toggleMenu toggleTheme />
       | Landscape => <> </>
       }}
     </div>
