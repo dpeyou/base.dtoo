@@ -3,8 +3,10 @@ type page =
   | Projects
 
 @react.component
-let make = (~page, ~theme: Theme.theme) => {
-  let style = ReactDOM.Style.make(
+let make = (~isMenuOpen: bool, ~page, ~theme: Theme.theme) => {
+  // inline styles
+  let containerStyle = ReactDOM.Style.make(
+    ~background="inherit",
     //~background=Theme.appBackground(theme),
     ~bottom="0",
     ~color=Theme.appColor(theme),
@@ -19,11 +21,27 @@ let make = (~page, ~theme: Theme.theme) => {
     (),
   )
 
+  // inline styles
+  let headingStyle = ReactDOM.Style.make(
+    ~bottom="0",
+    //~height="2.5rem",
+    ~margin="0",
+    (),
+  )
+
   // -- VIEW
-  <h1 style>
-    {switch page {
-    | Home => "Home"
-    | Projects => "Projects"
-    }->React.string}
-  </h1>
+  <div id="Header" style=containerStyle>
+    <h1 style=headingStyle>
+      {{
+        isMenuOpen
+          ? "Menu"
+          : {
+              switch page {
+              | Home => "Home"
+              | Projects => "Projects"
+              }
+            }
+      }->React.string}
+    </h1>
+  </div>
 }

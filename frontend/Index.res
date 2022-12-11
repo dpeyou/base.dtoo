@@ -5,11 +5,13 @@ module App = {
 
   type state = {
     page: Header.page,
+    isMenuOpen: bool,
     layout: layout,
     theme: Theme.theme,
   }
 
   type action =
+    | ToggleMenu(bool)
     | UpdateLayout(int)
     | UpdatePage(Header.page)
     | UpdateTheme(Theme.theme)
@@ -23,18 +25,24 @@ module App = {
     let (state, dispatch) = React.useReducer(
       (state, action) => {
         switch action {
-        | UpdateLayout(screenWidth) =>
-          {Js.log2("de witt iz: ", screenWidth)}
-          {...state, layout: screenWidth < mediaQueryWidth ? Portrait : Landscape}
-
-        | UpdatePage(page) => {
-          switch page {
-          | Home =>  LocalStorage.setItem("page", "Home")
-          | Projects =>  LocalStorage.setItem("page", "Projects")
+        | ToggleMenu(bool) => {
+            ...state,
+            isMenuOpen: bool === true ? false : true,
           }
-        }
+        | UpdateLayout(screenWidth) => {
+            ...state,
+            layout: screenWidth < mediaQueryWidth ? Portrait : Landscape,
+          }
 
-        { ...state, page}
+        | UpdatePage(page) =>
+          {
+            switch page {
+            | Home => LocalStorage.setItem("page", "Home")
+            | Projects => LocalStorage.setItem("page", "Projects")
+            }
+          }
+
+          {...state, page}
 
         | UpdateTheme(theme) =>
           {
@@ -49,6 +57,7 @@ module App = {
       },
       // -- initial state
       {
+        isMenuOpen: false,
         layout: initialScreenWidth < mediaQueryWidth ? Portrait : Landscape,
         page: Home,
         theme: switch LocalStorage.getItem("theme") {
@@ -62,6 +71,8 @@ module App = {
     // window.onresize
     // onResize: (unit => unit) => unit
     onResize(() => dispatch(UpdateLayout(%raw("window.document.body.clientWidth"))))
+
+    let toggleMenu: unit=>unit= ()=>dispatch(ToggleMenu(state.isMenuOpen));
 
     let toggleTheme: unit => unit = () => {
       state.theme == Dark ? dispatch(UpdateTheme(Light)) : dispatch(UpdateTheme(Dark))
@@ -81,11 +92,11 @@ module App = {
 
     // -- VIEW
     <div id="App" style>
-      <Header page=state.page theme=state.theme />
-      <Home theme=state.theme/>
+      <Header isMenuOpen=state.isMenuOpen page=state.page theme=state.theme />
+      <Home theme=state.theme />
       <Button onClick=toggleTheme theme=state.theme> {"Toggle_Theme"->React.string} </Button>
       {switch state.layout {
-      | Portrait => <Navbar theme=state.theme />
+      | Portrait => <Navbar isMenuOpen=state.isMenuOpen theme=state.theme toggleMenu />
       | Landscape => <> </>
       }}
     </div>

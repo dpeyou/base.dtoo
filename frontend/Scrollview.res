@@ -1,8 +1,5 @@
-type state = {transform: string}
-
-type action =
-  | GrowButton
-  | ShrinkButton
+type state = {scrollTop: int} /* when the scrollTop is above a certain distance, we can then make the scroll-to-top button appear */
+type action = GetScrollTop(int)
 
 @react.component
 let make = (
@@ -11,29 +8,41 @@ let make = (
   ~className="",
   ~fontSize="",
   ~id="",
-  ~left="",
+  ~left="0",
   ~margin="0 0.25rem",
+	~opacity="1",
+  ~overflowX="hidden",
+  ~overflowY="scroll",
   ~padding="0.35rem",
+  ~pointerEvents="",
   ~position="absolute",
-  ~right="",
+  ~right="0",
+	~tabIndex:int=0,
   ~theme: Theme.theme=Dark,
   ~top="",
+  ~transform="",
   ~width="initial",
+  ~zIndex="",
 ) => {
-  let (state, dispatch) = React.useReducer(
+  let (_state, dispatch) = React.useReducer(
     (_state, action) => {
       switch action {
-      | GrowButton => {transform: "scale(1.15)"}
-      | ShrinkButton => {transform: "scale(1.0)"}
+      | GetScrollTop(newScrollTop) => {scrollTop: newScrollTop}
       } // end switch action
     },
     // -- initial state
     {
-      transform: "",
+      scrollTop: {
+        switch ReactDOM.querySelector(id) {
+        | Some(_node: Dom.element) => %raw("_node.scrollTop")
+        | None => 0
+        }
+      },
     },
   )
 
-  let onScroll = _event => Js.log("scroll");
+  let onScroll: ReactEvent.UI.t => unit = _scroll =>
+    dispatch(GetScrollTop(%raw("_scroll.target.scrollTop")))
 
   let style = ReactDOM.Style.make(
     ~background=Theme.scrollviewBackground(theme),
@@ -44,16 +53,21 @@ let make = (
     ~fontSize,
     ~left,
     ~margin,
+		~opacity,
+    ~overflowX,
+    ~overflowY,
     ~padding,
+    ~pointerEvents,
     ~position,
     ~right,
     ~top,
-    ~transform=state.transform,
+    ~transform,
     ~transition="125ms",
     ~width,
+    ~zIndex,
     (),
   )
 
   // -- VIEW
-  <div id className={className ++ " scrollview scrollView"} onScroll style> children </div>
+  <div id className={className ++ " scrollview scrollView"} onScroll style tabIndex> children </div>
 }
