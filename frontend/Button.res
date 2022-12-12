@@ -15,19 +15,23 @@ type action =
 let make = (
   ~theme: Theme.theme,
   ~background=Theme.buttonBackground(theme),
-  ~color="#000",
-
+  //
   ~bottom="",
   ~children: React.element=<> </>,
+  ~className="",
+  ~color="#000",
   ~display="flex",
   ~fontSize="",
   ~height="",
   ~left="",
   ~margin="0.25rem",
-  ~onClick: unit => unit=()=>(),
+  ~onClick: unit => unit=() => (),
+  ~opacity="1",
   ~padding="0.35rem",
+  ~pointerEvents="",
   ~position="relative",
   ~right="",
+  ~tabIndex: int=0,
   ~top="",
   ~width="initial",
 ) => {
@@ -46,8 +50,8 @@ let make = (
 
   // use this to detect changes to state.transform & trigger another action
   if state.transform === "scale(1.15)" {
-    let function: unit => unit = () => {dispatch(ShrinkButton)};
-    setTimeout(function, 125);
+    let function: unit => unit = () => {dispatch(ShrinkButton)}
+    setTimeout(function, 125)
   }
 
   let buttonClick: ReactEvent.Mouse.t => unit = {_event => dispatch(GrowButton) |> onClick}
@@ -62,7 +66,9 @@ let make = (
     ~height,
     ~left,
     ~margin,
+    ~opacity,
     ~padding,
+    ~pointerEvents,
     ~position,
     ~right,
     ~top,
@@ -73,5 +79,5 @@ let make = (
   )
 
   // -- VIEW
-  <button onClick=buttonClick style> children </button>
+  <button className={className ++ " button"} onClick=buttonClick style tabIndex> children </button>
 }

@@ -68,8 +68,10 @@ module App = {
       },
     )
 
-    // window.onresize
-    // onResize: (unit => unit) => unit
+    /*
+     * window.onresize
+     * onResize: (unit => unit) => unit
+     */
     onResize(() => dispatch(UpdateLayout(%raw("window.document.body.clientWidth"))))
 
     let _closeMenu: unit => unit = () => dispatch(ToggleMenu(true))
@@ -100,7 +102,15 @@ module App = {
       <Home page=state.page theme=state.theme />
       <Projects page=state.page theme=state.theme />
       {switch state.layout {
-      | Portrait => <Navbar isMenuOpen=state.isMenuOpen navToPage={page=>dispatch(UpdatePage(page))} page=state.page theme=state.theme toggleMenu toggleTheme />
+      | Portrait =>
+        <Navbar
+          isMenuOpen=state.isMenuOpen
+          navToPage={page => dispatch(UpdatePage(page))}
+          page=state.page
+          theme=state.theme
+          toggleMenu
+          toggleTheme
+        />
       | Landscape => <> </>
       }}
     </div>
