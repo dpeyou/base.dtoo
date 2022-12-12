@@ -59,7 +59,11 @@ module App = {
       {
         isMenuOpen: false,
         layout: initialScreenWidth < mediaQueryWidth ? Portrait : Landscape,
-        page: Home,
+        page: switch LocalStorage.getItem("page") {
+        | "Home" => Home
+        | "Projects" => Projects
+        | _anyThingElse => Home
+        },
         theme: switch LocalStorage.getItem("theme") {
         | "Dark" => Dark
         | "Light" => Light

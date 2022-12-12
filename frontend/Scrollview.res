@@ -14,7 +14,7 @@ let make = (
   ~className="",
   ~display="",
   ~fontSize="",
-  ~id="",
+  ~id,
   ~left="0",
   ~margin="0 0.25rem",
   ~opacity="1",
@@ -99,7 +99,7 @@ let make = (
     | None => () |> (() => Js.log("failed to find"))
     }
 
-  let scrolledAlot: bool = state.scrollTop > 200
+  let scrolledAlot: bool = state.scrollTop > 500
 
 
   // -- VIEW
