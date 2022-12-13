@@ -24,6 +24,7 @@ let make = (
   ~pointerEvents="",
   ~position="absolute",
   ~right="0",
+  //~scrollToTop,
   ~tabIndex: int=0,
   ~top="",
   ~transform="",
@@ -93,13 +94,14 @@ let make = (
   let onScroll: ReactEvent.UI.t => unit = _scroll =>
     dispatch(GetScrollTop(%raw("_scroll.target.scrollTop")))
 
+  let scrolledAlot: bool = state.scrollTop > 750
+
   let scrollToTop: unit => unit = () =>
-    switch ReactDOM.querySelector(id) {
-    | Some(_scrollview) => %raw("function(){_scrollview.scrollTop = 0}") |> (() => Js.log("sxxs"))
+    switch ReactDOM.querySelector("#"++id) {
+    | Some(_scrollview) => %raw("_scrollview.scroll({top:0, behavior:'smooth'})")
     | None => () |> (() => Js.log("failed to find"))
     }
 
-  let scrolledAlot: bool = state.scrollTop > 500
 
 
   // -- VIEW
@@ -112,11 +114,20 @@ let make = (
       className="scroll-to-top sttb"
       height="2.5rem"
       onClick=scrollToTop
-      opacity={scrolledAlot ? "1" : "0"}
-      pointerEvents={scrolledAlot ? "auto" : "none"}
+      opacity={ opacity == "1" ? // is the scrollview itself visible?
+        {scrolledAlot ? "1" : "0"}
+        : "none"
+      }
+      pointerEvents={ pointerEvents == "auto" ? // are the scrollview pointerEvents active?
+        {scrolledAlot ? "auto" : "none"} 
+        : "none"
+      }
       position="absolute"
       right="0.1rem"
-      tabIndex={scrolledAlot ? 0 : -1}
+      tabIndex={ tabIndex == 0 ? // can the scrollview itself be tabbed?
+        {scrolledAlot ? 0 : -1}
+        : -1
+      }
       theme
       width="4rem">
       upArrowIcon

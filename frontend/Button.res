@@ -23,6 +23,7 @@ let make = (
   ~display="flex",
   ~fontSize="",
   ~height="",
+  ~id="",
   ~left="",
   ~margin="0.25rem",
   ~onClick: unit => unit=() => (),
@@ -79,5 +80,5 @@ let make = (
   )
 
   // -- VIEW
-  <button className={className ++ " button"} onClick=buttonClick style tabIndex> children </button>
+  <button id className={className ++ " button"} onClick=buttonClick style tabIndex> children </button>
 }

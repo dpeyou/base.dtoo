@@ -6,18 +6,7 @@ let make = (~page: Header.page, ~theme: Theme.theme) => {
   let tabIndex = {isCurrentPage ? -1 : 0}
   let transform = {isCurrentPage ? "" : "translateX(-25px)"}
 
-    let pageStyles = ReactDOM.Style.make(
-    ~opacity,
-    ~pointerEvents,
-    //~position,
-    //~right,
-    //~top,
-    //~transform,
-    //~transition="125ms",
-    //~width,
-    //~zIndex,
-    (),
-  )
+  let pageStyles = ReactDOM.Style.make(~opacity, ~pointerEvents, ())
 
   // -- VIEW
   <div id="Home" style=pageStyles tabIndex>
