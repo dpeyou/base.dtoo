@@ -3,7 +3,7 @@ let make = (~page: Header.page, ~theme: Theme.theme) => {
   let isCurrentPage: bool = page == Home
   let opacity = {isCurrentPage ? "1" : "0"}
   let pointerEvents = {isCurrentPage ? "auto" : "none"}
-  let tabIndex = {isCurrentPage ? -1 : 0}
+  let tabIndex = {isCurrentPage ? 0 : -1}
   let transform = {isCurrentPage ? "" : "translateX(-25px)"}
 
   let pageStyles = ReactDOM.Style.make(~opacity, ~pointerEvents, ())
@@ -16,16 +16,17 @@ let make = (~page: Header.page, ~theme: Theme.theme) => {
         {"Hey, I'm Darren"->React.string}
       </p>
       <img
-        alt="Picture-of-Darren"
+        alt="Darren-headshot"
         src="./images/darren.jpeg"
         style={ReactDOM.Style.make(
           ~border="solid #000",
-          ~borderWidth="2px 8px",
+          ~borderWidth="2px 6px",
           ~boxSizing="border-box",
           ~width="100%",
           (),
         )}
       />
+      //<p><p>
       <p>
         {"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non sodales neque sodales ut etiam sit amet nisl purus. Massa sapien faucibus et molestie ac feugiat sed. Eget felis eget nunc lobortis mattis aliquam faucibus purus. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Tempor nec feugiat nisl pretium fusce. Pharetra diam sit amet nisl suscipit. Velit sed ullamcorper morbi tincidunt ornare massa eget. Enim neque volutpat ac tincidunt vitae. Sit amet volutpat consequat mauris nunc congue nisi vitae. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Ipsum suspendisse ultrices gravida dictum fusce ut. In iaculis nunc sed augue. Urna duis convallis convallis tellus id interdum velit laoreet id.
 

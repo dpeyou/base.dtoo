@@ -114,17 +114,17 @@ let make = (
       className="scroll-to-top sttb"
       height="2.5rem"
       onClick=scrollToTop
-      opacity={ opacity == "1" ? // is the scrollview itself visible?
+      opacity={ opacity === "1" ? // is the scrollview itself visible?
         {scrolledAlot ? "1" : "0"}
-        : "none"
+        : "0"
       }
-      pointerEvents={ pointerEvents == "auto" ? // are the scrollview pointerEvents active?
+      pointerEvents={ pointerEvents === "auto" ? // are the scrollview pointerEvents active?
         {scrolledAlot ? "auto" : "none"} 
         : "none"
       }
       position="absolute"
       right="0.1rem"
-      tabIndex={ tabIndex == 0 ? // can the scrollview itself be tabbed?
+      tabIndex={ tabIndex === 0 ? // can the scrollview itself be tabbed?
         {scrolledAlot ? 0 : -1}
         : -1
       }
