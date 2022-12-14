@@ -20,6 +20,18 @@ let buttonBackground = theme =>
   | Light => "#ffffb9"
   }
 
+let headingColor = theme =>
+  switch theme {
+  | Dark => "#ffe0a0"
+  | Light => "#000"
+  }
+
+let textBlockBackground = theme =>
+  switch theme {
+  | Dark => "#654"
+  | Light => "#fff"
+  }
+
 let menuBackground = theme =>
   switch theme {
   | Dark => "rgb(111, 89, 60)"
