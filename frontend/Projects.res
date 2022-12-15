@@ -1,5 +1,5 @@
 @react.component
-let make = (~page: Header.page, ~theme: Theme.theme) => {
+let make = (~layout: Types.layout,~page: Types.page, ~theme: Types.theme) => {
   let isCurrentPage: bool = page == Projects
   let opacity = {isCurrentPage ? "1" : "0"}
   let pointerEvents = {isCurrentPage ? "auto" : "none"}
@@ -8,13 +8,21 @@ let make = (~page: Header.page, ~theme: Theme.theme) => {
 
   let pageStyles = ReactDOM.Style.make(~opacity, ~pointerEvents, ~transition="125ms", ())
 
+  // variable attributes due to layout
+  let isPortrait: bool = layout === Portrait
+  let svBottom = {isPortrait ? "3rem" : "0"}
+  let svRight = {isPortrait ? "0" : "40%"}
+  let sttbRight = {isPortrait ? "0.1rem" : "41%"}
+
   // -- VIEW
   <div id="Projects" style=pageStyles tabIndex>
     <Scrollview
       id="ProjectsScrollview"
-      bottom="3rem"
+      bottom=svBottom
       opacity
       pointerEvents
+      right=svRight
+      sttbRight
       tabIndex
       theme
       top="2.5em"
@@ -31,6 +39,7 @@ Eget egestas purus viverra accumsan in nisl. Massa sed elementum tempus egestas 
 
 Velit ut tortor pretium viverra suspendisse. Sed euismod nisi porta lorem. Mi sit amet mauris commodo quis imperdiet massa tincidunt nunc. Donec ultrices tincidunt arcu non. Nam libero justo laoreet sit. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Nulla porttitor massa id neque aliquam vestibulum. Ut lectus arcu bibendum at varius. Suspendisse faucibus interdum posuere lorem ipsum dolor. Donec et odio pellentesque diam. A scelerisque purus semper eget duis at tellus. Amet mattis vulputate enim nulla aliquet porttitor lacus. Tincidunt praesent semper feugiat nibh. Ultrices gravida dictum fusce ut. Risus feugiat in ante metus dictum at tempor. Sodales ut etiam sit amet nisl purus. Pharetra vel turpis nunc eget lorem dolor sed viverra ipsum. Habitasse platea dictumst quisque sagittis purus. Auctor urna nunc id cursus metus aliquam eleifend mi in."->React.string}
       </p>
+      <Footer/>
     </Scrollview>
   </div>
 }

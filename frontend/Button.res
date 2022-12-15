@@ -13,7 +13,7 @@ type action =
 
 @react.component
 let make = (
-  ~theme: Theme.theme,
+  ~theme: Types.theme,
   ~background=Theme.buttonBackground(theme),
   //
   ~bottom="",

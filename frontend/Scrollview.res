@@ -1,11 +1,11 @@
 type state = {
-  scrollTop: int, /* when the scrollTop is above a certain distance, we can then make the scroll-to-top button appear */
-} 
+  scrollTop: int /* when the scrollTop is above a certain distance, we can then make the scroll-to-top button appear */,
+}
 type action = GetScrollTop(int)
 
 @react.component
 let make = (
-  ~theme: Theme.theme /* the following 2use this prop for default value */,
+  ~theme: Types.theme /* the following 2use this prop for default value */,
   ~background=Theme.scrollviewBackground(theme),
   ~color=Theme.appColor(theme),
   //
@@ -24,13 +24,15 @@ let make = (
   ~pointerEvents="",
   ~position="absolute",
   ~right="0",
-  //~scrollToTop,
+  ~sttbRight="",
   ~tabIndex: int=0,
   ~top="",
   ~transform="",
   ~width="initial",
   ~zIndex="",
 ) => {
+  
+  // state manager/reducer
   let (state, dispatch) = React.useReducer(
     (_state, action) => {
       switch action {
@@ -97,12 +99,10 @@ let make = (
   let scrolledAlot: bool = state.scrollTop > 750
 
   let scrollToTop: unit => unit = () =>
-    switch ReactDOM.querySelector("#"++id) {
+    switch ReactDOM.querySelector("#" ++ id) {
     | Some(_scrollview) => %raw("_scrollview.scroll({top:0, behavior:'smooth'})")
     | None => () |> (() => Js.log("failed to find"))
     }
-
-
 
   // -- VIEW
   <>
@@ -114,20 +114,26 @@ let make = (
       className="scroll-to-top sttb"
       height="2.5rem"
       onClick=scrollToTop
-      opacity={ opacity === "1" ? // is the scrollview itself visible?
-        {scrolledAlot ? "1" : "0"}
-        : "0"
-      }
-      pointerEvents={ pointerEvents === "auto" ? // are the scrollview pointerEvents active?
-        {scrolledAlot ? "auto" : "none"} 
-        : "none"
-      }
+      opacity={opacity === "1"
+        ? {
+            // is the scrollview itself visible?
+            scrolledAlot ? "1" : "0"
+          }
+        : "0"}
+      pointerEvents={pointerEvents === "auto"
+        ? {
+            // are the scrollview pointerEvents active?
+            scrolledAlot ? "auto" : "none"
+          }
+        : "none"}
       position="absolute"
-      right="0.1rem"
-      tabIndex={ tabIndex === 0 ? // can the scrollview itself be tabbed?
-        {scrolledAlot ? 0 : -1}
-        : -1
-      }
+      right=sttbRight
+      tabIndex={tabIndex === 0
+        ? {
+            // can the scrollview itself be tabbed?
+            scrolledAlot ? 0 : -1
+          }
+        : -1}
       theme
       width="4rem">
       upArrowIcon

@@ -1,20 +1,16 @@
 module App = {
-  type layout =
-    | Landscape
-    | Portrait
-
   type state = {
-    page: Header.page,
+    page: Types.page,
     isMenuOpen: bool,
-    layout: layout,
-    theme: Theme.theme,
+    layout: Types.layout,
+    theme: Types.theme,
   }
 
   type action =
     | ToggleMenu(bool)
     | UpdateLayout(int)
-    | UpdatePage(Header.page)
-    | UpdateTheme(Theme.theme)
+    | UpdatePage(Types.page)
+    | UpdateTheme(Types.theme)
 
   let initialScreenWidth: int = %raw("window.document.body.clientWidth")
   let mediaQueryWidth: int = 700
@@ -103,8 +99,10 @@ module App = {
     // -- VIEW
     <div id="App" style>
       <Header isMenuOpen=state.isMenuOpen page=state.page theme=state.theme />
-      <Home page=state.page theme=state.theme />
-      <Projects page=state.page theme=state.theme />
+      // pages
+      <Home layout=state.layout page=state.page theme=state.theme />
+      <Projects layout=state.layout page=state.page theme=state.theme />
+      // navbar & sidebar
       {switch state.layout {
       | Portrait =>
         <Navbar
@@ -115,7 +113,12 @@ module App = {
           toggleMenu
           toggleTheme
         />
-      | Landscape => <> </>
+      | Landscape =>
+        <Sidebar
+          navToPage={page => dispatch(UpdatePage(page))}
+          theme=state.theme
+          toggleTheme={theme=>dispatch(UpdateTheme(theme))}
+        />
       }}
     </div>
   }

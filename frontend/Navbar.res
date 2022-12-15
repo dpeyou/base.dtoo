@@ -1,9 +1,9 @@
 @react.component
 let make = (
   ~isMenuOpen: bool=false,
-  ~navToPage: Header.page => unit,
-  ~page: Header.page,
-  ~theme: Theme.theme,
+  ~navToPage: Types.page => unit,
+  ~page: Types.page,
+  ~theme: Types.theme,
   ~toggleMenu: unit => unit=() => (),
   ~toggleTheme: unit => unit=() => (),
 ) => {
@@ -140,7 +140,7 @@ let make = (
       <Button
         height="2.5rem"
         margin="0"
-        onClick={page == Home ? () => navToPage(Header.Projects) : () => navToPage(Header.Home)}
+        onClick={page == Home ? () => navToPage(Types.Projects) : () => navToPage(Types.Home)}
         position="absolute"
         right="0"
         theme
@@ -161,8 +161,8 @@ let make = (
       transform={isMenuOpen ? "translateY(0px)" : "translateY(25px)"}>
       <section>
         <h2> {"Pages"->React.string} </h2>
-        <Button onClick={() => navToPage(Header.Home)} theme> {"Home"->React.string} </Button>
-        <Button onClick={() => navToPage(Header.Projects)} theme>
+        <Button onClick={() => navToPage(Types.Home)} theme> {"Home"->React.string} </Button>
+        <Button onClick={() => navToPage(Types.Projects)} theme>
           {"Projects"->React.string}
         </Button>
       </section>

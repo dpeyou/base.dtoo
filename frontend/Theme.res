@@ -1,6 +1,4 @@
-type theme =
-  | Dark
-  | Light
+open Types;
 
 let appBackground = theme =>
   switch theme {

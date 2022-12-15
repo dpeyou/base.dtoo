@@ -1,9 +1,5 @@
-type page =
-  | Home
-  | Projects
-
 @react.component
-let make = (~isMenuOpen: bool, ~page, ~theme: Theme.theme) => {
+let make = (~isMenuOpen: bool, ~page:Types.page, ~theme: Types.theme) => {
   // inline styles
   let containerStyle = ReactDOM.Style.make(
     ~background="inherit",
