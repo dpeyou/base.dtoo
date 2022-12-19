@@ -1,0 +1,17 @@
+[package]
+name = "base-dtoo-server" # the name of the package
+version = "0.1.0"    # the current version, obeying semver
+authors = ["Darren Peyou <dtoo.me>"]
+edition = "2018" # otherwise, nothing works
+
+
+[dependencies]
+actix-web = "4.2.1"
+actix-files = "0.6.2"
+rocket = { version = "0.5.0-rc.2", features = ["secrets"] }
+
+
+[[bin]]
+name = "server" # name of the generated binary
+path = "./server.rs" # path to entry point file
+# REFERENCE: https://doc.rust-lang.org/cargo/reference/config.html#buildtarget-dir

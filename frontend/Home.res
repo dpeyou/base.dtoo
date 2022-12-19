@@ -14,8 +14,13 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
   let tabIndex = {isCurrentPage ? 0 : -1}
   let transform = {isCurrentPage ? "" : "translateX(-25px)"}
 
-  // styles
-  let anchorStyles = ReactDOM.Style.make(~color=Theme.headingColor(theme), ())
+  // inline styles
+  let anchorStyles = ReactDOM.Style.make(
+    ~color=Theme.headingColor(theme),
+    ~fontSize="110%",
+    ~fontWeight="bold",
+    (),
+  )
   let headingStyles = ReactDOM.Style.make(
     ~color=Theme.headingColor(theme),
     ~fontSize="1.8rem",
@@ -33,7 +38,7 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
     ~border="solid black",
     ~borderWidth="2px 0",
     ~fontSize="1.05rem",
-    ~margin="0 0.25rem 2.5rem",
+    ~margin="0 0.25rem 3rem",
     ~padding="0.5rem",
     //~textAlign="center",
     (),
@@ -47,7 +52,7 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
     (),
   )
   let listStyles = ReactDOM.Style.make(~listStyle="inside", ~margin="0 0 1rem", ~padding="0", ())
-  let listStyles2 = ReactDOM.Style.make(~margin="0 0 1rem", ~padding="0.5rem", ())
+  let listStyles2 = ReactDOM.Style.make(~margin="0 0 2.5rem", ~padding="0.5rem", ())
   let pageStyles = ReactDOM.Style.make(~opacity, ~pointerEvents, ())
 
   // variable attributes due to layout
@@ -71,7 +76,7 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
       transform>
       <h2 style=headingStyles> {"Hey, I'm Darren"->React.string} </h2>
       <h3 style=introStyles2> {"Web developer"->React.string} </h3>
-      <h3 style=introStyles2> {"Freelancer"->React.string} </h3>
+      <h3 style=introStyles2> {"3D enthusiast"->React.string} </h3>
       <img
         alt="Darren-headshot"
         src="./images/darren.jpeg"
@@ -102,14 +107,34 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
                 {"WordPress profile"->React.string}
               </a>
             </li>
-            <li style=introStyles2> {"HIJKLMNOP"->React.string} </li>
+            <li style=introStyles2>
+              {"To see a little more of my WordPress plugin support, click here: "->React.string}
+              <a
+                href="https://wordpress.org/support/users/dpeyou/replies/"
+                style=anchorStyles
+                target="_blank">
+                {"Public WordPress plugin support"->React.string}
+              </a>
+              <img
+                alt="plugin-support-image"
+                src="./images/darren-forum-replies-light.png"
+                style={ReactDOM.Style.make(
+                  ~border="solid #000",
+                  ~borderWidth="2px 0",
+                  ~boxSizing="border-box",
+                  ~margin="0.5rem",
+                  ~width="90%",
+                  (),
+                )}
+              />
+            </li>
           </ul>
         </li>
         <li>
           <b style=headingStyles2> {"Full-stack web development"->React.string} </b>
           <ul style=listStyles2>
             <li style=introStyles2>
-              {"The main tools I use for front-end development are JavaScript & ReasonML/Rescript. I built this website using Rescript-React. You can take a look at the source-code on GitHub, here: "->React.string}
+              {"The main tools I use for front-end development are JavaScript & ReasonML/Rescript. I built this website using the Rescript-React framework. The backend of this website was written in Rust using the ... framework. You can take a look at the source-code on GitHub, here: "->React.string}
               <a
                 href="https://github.com/dpeyou?tab=repositories"
                 style=anchorStyles
@@ -118,7 +143,10 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
               </a>
             </li>
             <li style=introStyles2>
-              {"This website was deployed to a server purchased from Vultr, using Docker & CapRover."->React.string}
+              {"I can also handle managing website deployment. The Website is deployed to via a Virtual Machine from Vultr.com. Here's my referal link if you are a developer & are interested: "->React.string}
+              <a href="https://www.vultr.com/?ref=8578920" style=anchorStyles target="_blank">
+                {"Vultr Server Referal Code"->React.string}
+              </a>
             </li>
           </ul>
         </li>
@@ -126,22 +154,50 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
           <b style=headingStyles2> {"3d modeling & animation"->React.string} </b>
           <ul style=listStyles2>
             <li style=introStyles2>
-              {"I have been developing these skills as a hobby for my video game project. Do you know about Blender 3D?"->React.string}
+              {"I have been developing these skills as a hobby for my video game project. I use Blender for my 3D modeling & animation, then I test my assets in the UPBGE & Godot game engines"->React.string}
             </li>
             <li style=introStyles2>
-              {"Let me introduce you to my very first videogame character. Say hello to Isoke: "->React.string}
+              {"Let me introduce you to my very first videogame character. As a kid, I used to play a lot of Tomb Raider, so maybe this is an African version of one of my favorite games..? "->React.string}
+              <br />
+              <br />
+              {"Say hello to Isoke, modeled & animated from scratch by me: "->React.string}
+              <img
+                alt="character-poster"
+                src="./images/isk-rosegun.poster.png"
+                style={ReactDOM.Style.make(
+                  ~border="solid #000",
+                  ~borderWidth="2px 0",
+                  ~boxSizing="border-box",
+                  ~margin="0.5rem",
+                  ~width="90%",
+                  (),
+                )}
+              />
+              <img
+                alt="jog-animation"
+                src="./images/isk-jog-front.gif"
+                style={ReactDOM.Style.make(
+                  ~border="solid #000",
+                  ~borderWidth="2px 0",
+                  ~boxSizing="border-box",
+                  ~margin="0.5rem",
+                  ~width="90%",
+                  (),
+                )}
+              />
             </li>
           </ul>
         </li>
       </ul>
-      <h2 style=headingStyles> {"Contact: "->React.string} </h2>
-      <p>
-        {"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non sodales neque sodales ut etiam sit amet nisl purus. Massa sapien faucibus et molestie ac feugiat sed. Eget felis eget nunc lobortis mattis aliquam faucibus purus. Molestie ac feugiat sed lectus vestibulum mattis ullamcorper velit. Tempor nec feugiat nisl pretium fusce. Pharetra diam sit amet nisl suscipit. Velit sed ullamcorper morbi tincidunt ornare massa eget. Enim neque volutpat ac tincidunt vitae. Sit amet volutpat consequat mauris nunc congue nisi vitae. Ultricies lacus sed turpis tincidunt id aliquet risus feugiat. Ipsum suspendisse ultrices gravida dictum fusce ut. In iaculis nunc sed augue. Urna duis convallis convallis tellus id interdum velit laoreet id.
-
-Id neque aliquam vestibulum morbi blandit cursus risus at ultrices. Sit amet venenatis urna cursus eget nunc s
-
-Velit ut tortor pretium viverra suspendisse. Sed euismod nisi porta lorem. Mi sit amet mauris commodo quis imperdiet massa tincidunt nunc. Donec ultrices tincidunt arcu non. Nam libero justo laoreet sit. Mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor. Nulla porttitor massa id neque aliquam vestibulum. Ut lectus arcu bibendum at varius. Suspendisse faucibus interdum posuere lorem ipsum dolor. Donec et odio pellentesque diam. A scelerisque purus semper eget duis at tellus. Amet mattis vulputate enim nulla aliquet porttitor lacus. Tincidunt praesent semper feugiat nibh. Ultrices gravida dictum fusce ut. Risus feugiat in ante metus dictum at tempor. Sodales ut etiam sit amet nisl purus. Pharetra vel turpis nunc eget lorem dolor sed viverra ipsum. Habitasse platea dictumst quisque sagittis purus. Auctor urna nunc id cursus metus aliquam eleifend mi in."->React.string}
-      </p>
+      <section id="contact">
+        <h2 style=headingStyles> {"Contact: "->React.string} </h2>
+        <p style=introStyles>
+          {"If you want to get in contact with me, send me an email at "->React.string}
+        <a href="mailto: dpeyou@tutanota.com" style=anchorStyles>
+          {"dpeyou@tutanota.com"->React.string}
+        </a>
+        </p>
+      </section>
       <Footer />
     </Scrollview>
   </div>

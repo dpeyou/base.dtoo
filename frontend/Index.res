@@ -34,7 +34,7 @@ module App = {
           {
             switch page {
             | Home => LocalStorage.setItem("page", "Home")
-            | Projects => LocalStorage.setItem("page", "Projects")
+            | Blog => LocalStorage.setItem("page", "Blog")
             }
           }
 
@@ -48,7 +48,7 @@ module App = {
             }
           }
 
-          {...state, theme}
+          {...state, isMenuOpen: false, theme}
         } // end switch action
       },
       // -- initial state
@@ -57,7 +57,7 @@ module App = {
         layout: initialScreenWidth < mediaQueryWidth ? Portrait : Landscape,
         page: switch LocalStorage.getItem("page") {
         | "Home" => Home
-        | "Projects" => Projects
+        | "Blog" => Blog
         | _anyThingElse => Home
         },
         theme: switch LocalStorage.getItem("theme") {
@@ -78,10 +78,6 @@ module App = {
     let _openMenu: unit => unit = () => dispatch(ToggleMenu(false))
     let toggleMenu: unit => unit = () => dispatch(ToggleMenu(state.isMenuOpen))
 
-    let toggleTheme: unit => unit = () => {
-      state.theme == Dark ? dispatch(UpdateTheme(Light)) : dispatch(UpdateTheme(Dark))
-    }
-
     // inline styles
     let style = ReactDOM.Style.make(
       ~background=Theme.appBackground(state.theme),
@@ -98,10 +94,10 @@ module App = {
 
     // -- VIEW
     <div id="App" style>
-      <Header isMenuOpen=state.isMenuOpen page=state.page theme=state.theme />
+      <Header isMenuOpen=state.isMenuOpen layout=state.layout page=state.page theme=state.theme />
       // pages
       <Home layout=state.layout page=state.page theme=state.theme />
-      <Projects layout=state.layout page=state.page theme=state.theme />
+      <Blog layout=state.layout page=state.page theme=state.theme />
       // navbar & sidebar
       {switch state.layout {
       | Portrait =>
@@ -111,13 +107,13 @@ module App = {
           page=state.page
           theme=state.theme
           toggleMenu
-          toggleTheme
+          toggleTheme={theme => dispatch(UpdateTheme(theme))}
         />
       | Landscape =>
         <Sidebar
           navToPage={page => dispatch(UpdatePage(page))}
           theme=state.theme
-          toggleTheme={theme=>dispatch(UpdateTheme(theme))}
+          toggleTheme={theme => dispatch(UpdateTheme(theme))}
         />
       }}
     </div>

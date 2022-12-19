@@ -16,6 +16,7 @@ let make = (
   ~theme: Types.theme,
   ~background=Theme.buttonBackground(theme),
   //
+  ~alignItems="",
   ~bottom="",
   ~children: React.element=<> </>,
   ~className="",
@@ -25,6 +26,7 @@ let make = (
   ~fontSize="",
   ~height="",
   ~id="",
+  ~justifyContent="",
   ~left="",
   ~margin="0.25rem",
   ~onClick: unit => unit=() => (),
@@ -59,6 +61,7 @@ let make = (
   let buttonClick: ReactEvent.Mouse.t => unit = {_event => dispatch(GrowButton) |> onClick}
 
   let style = ReactDOM.Style.make(
+    ~alignItems,
     ~background,
     ~border="2px solid",
     ~bottom,
@@ -67,6 +70,7 @@ let make = (
     ~flexDirection,
     ~fontSize,
     ~height,
+    ~justifyContent,
     ~left,
     ~margin,
     ~opacity,
@@ -82,5 +86,7 @@ let make = (
   )
 
   // -- VIEW
-  <button id className={className ++ " button"} onClick=buttonClick style tabIndex> children </button>
+  <button id className={className ++ " button"} onClick=buttonClick style tabIndex>
+    children
+  </button>
 }

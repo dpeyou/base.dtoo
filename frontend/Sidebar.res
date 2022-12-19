@@ -13,21 +13,7 @@ let make = (
     ~margin="1rem 0.25rem 0.5rem",
     (),
   )
-  let sectionStyle = ReactDOM.Style.make(
-    ~alignItems="center",
-    ~background="inherit",
-    ~bottom="0",
-    ~color=Theme.appColor(theme),
-    ~display="flex",
-    ~height="2.5rem",
-    ~justifyContent="center",
-    ~left="0",
-    ~margin="0 0.35rem",
-    ~padding="0.25rem 0",
-    ~position="absolute",
-    ~right="0",
-    (),
-  )
+  let sectionStyles = ReactDOM.Style.make(~margin="0 0 2.5rem", ())
 
   // -- SVG
   let moonIcon =
@@ -40,7 +26,7 @@ let make = (
       strokeLinejoin="round"
       strokeWidth="2"
       viewBox="0 0 24 24"
-      width="100%"
+      //width=""
       xmlns="http://www.w3.org/2000/svg">
       <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
     </svg>
@@ -55,7 +41,7 @@ let make = (
       strokeLinejoin="round"
       strokeWidth="2"
       viewBox="0 0 24 24"
-      width="100%"
+      //width=""
       xmlns="http://www.w3.org/2000/svg">
       <circle cx="12" cy="12" r="5" />
       <line x1="12" y1="1" x2="12" y2="3" />
@@ -77,24 +63,54 @@ let make = (
     //scrollToTop={()=>()}
     theme
     top="2.5rem">
-    <section>
+    <section style=sectionStyles>
       <h2 style=headingStyles> {"Pages"->React.string} </h2>
-      <Button fontSize="1.5rem" margin="0 0 0.25rem" onClick={() => navToPage(Types.Home)} theme width="100%">
+      <Button
+        fontSize="1.5rem"
+        height="3.5rem"
+        margin="0 0 0.25rem"
+        onClick={() => navToPage(Types.Home)}
+        theme
+        width="100%">
         {"Home"->React.string}
       </Button>
       <Button
-        fontSize="1.5rem" margin="0 0 0.25rem" onClick={() => navToPage(Types.Projects)} theme width="100%">
-        {"Projects"->React.string}
+        fontSize="1.5rem"
+        height="3.5rem"
+        margin="0 0 0.25rem"
+        onClick={() => navToPage(Types.Blog)}
+        theme
+        width="100%">
+        {"Blog"->React.string}
       </Button>
     </section>
-    <section>
-      <h2 style=headingStyles> {"Theme"->React.string} </h2>
+    <section style=sectionStyles>
+      <h2 style=headingStyles> {"Themes"->React.string} </h2>
       <Button
-        height="2.5rem" left="0" margin="0 0 0.25rem" onClick={() => toggleTheme(Types.Dark)} theme width="100%">
-        moonIcon
+        alignItems="center"
+        display="flex"
+        fontSize="1.5rem"
+        height="3.5rem"
+        justifyContent="center"
+        left="0"
+        margin="0 0 0.25rem"
+        onClick={() => toggleTheme(Types.Dark)}
+        theme
+        width="100%">
+        moonIcon {"Dark"->React.string}
       </Button>
-      <Button height="2.5rem" left="0" margin="0 0 0.25rem"  onClick={() => toggleTheme(Types.Light)} theme width="100%">
-        sunIcon
+      <Button
+        alignItems="center"
+        display="flex"
+        fontSize="1.5rem"
+        height="3.5rem"
+        justifyContent="center"
+        left="0"
+        margin="0 0 0.25rem"
+        onClick={() => toggleTheme(Types.Light)}
+        theme
+        width="100%">
+        sunIcon {"Light"->React.string}
       </Button>
     </section>
   </Scrollview>

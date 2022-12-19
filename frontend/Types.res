@@ -4,7 +4,7 @@ type layout =
 
 type page =
   | Home
-  | Projects
+  | Blog
 
 type theme =
   | Dark

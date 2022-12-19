@@ -5,10 +5,10 @@ let make = (
   ~page: Types.page,
   ~theme: Types.theme,
   ~toggleMenu: unit => unit=() => (),
-  ~toggleTheme: unit => unit=() => (),
+  ~toggleTheme: Types.theme => unit,
 ) => {
   // inline styles for navbar
-  let style = ReactDOM.Style.make(
+  let navbarStyles = ReactDOM.Style.make(
     ~alignItems="center",
     ~background="inherit",
     ~bottom="0",
@@ -23,6 +23,7 @@ let make = (
     ~right="0",
     (),
   )
+  let sectionStyles = ReactDOM.Style.make(~margin="0 0 3rem", ())
 
   // -- SVG
   let arrowRightIcon =
@@ -114,12 +115,12 @@ let make = (
 
   // -- VIEW
   <>
-    <div id="Navbar" className="navigation" style>
+    <div id="Navbar" className="navigation" style=navbarStyles>
       <Button
         height="2.5rem"
         left="0"
         margin="0"
-        onClick=toggleTheme
+        onClick={() => theme === Types.Dark ? toggleTheme(Types.Light) : toggleTheme(Types.Dark)}
         position="absolute"
         theme
         width="4rem">
@@ -140,7 +141,7 @@ let make = (
       <Button
         height="2.5rem"
         margin="0"
-        onClick={page == Home ? () => navToPage(Types.Projects) : () => navToPage(Types.Home)}
+        onClick={page == Home ? () => navToPage(Types.Blog) : () => navToPage(Types.Home)}
         position="absolute"
         right="0"
         theme
@@ -153,17 +154,50 @@ let make = (
       bottom="3.25rem"
       id="Menu"
       opacity={isMenuOpen ? "1" : "0"}
+      padding="8rem 0.35rem 0"
       pointerEvents={isMenuOpen ? "auto" : "none"}
-			//scrollToTop={()=>()}
+      //scrollToTop={()=>()}
       tabIndex={isMenuOpen ? 0 : -1}
+      textAlign="center"
       theme
       top="2.75rem"
       transform={isMenuOpen ? "translateY(0px)" : "translateY(25px)"}>
-      <section>
+      <section style=sectionStyles>
         <h2> {"Pages"->React.string} </h2>
-        <Button onClick={() => navToPage(Types.Home)} theme> {"Home"->React.string} </Button>
-        <Button onClick={() => navToPage(Types.Projects)} theme>
-          {"Projects"->React.string}
+        <Button
+          fontSize="1.5rem"
+          height="3.5rem"
+          onClick={() => navToPage(Types.Home)}
+          theme
+          width="100%">
+          {"Home"->React.string}
+        </Button>
+        <Button
+          fontSize="1.5rem"
+          height="3.5rem"
+          onClick={() => navToPage(Types.Blog)}
+          theme
+          width="100%">
+          {"Blog"->React.string}
+        </Button>
+      </section>
+      <section style=sectionStyles>
+        <h2> {"Themes"->React.string} </h2>
+        <Button
+          fontSize="1.5rem"
+          height="3.5rem"
+          onClick={() => toggleTheme(Types.Dark)}
+          theme
+          width="100%">
+          {"Dark"->React.string}
+        </Button>
+        <Button
+          fontSize="1.5rem"
+          height="3.5rem"
+          onClick={() => toggleTheme(Types.Light)}
+          theme
+          width="100%">
+          {"Light"->React.string}
         </Button>
       </section>
     </Scrollview>
