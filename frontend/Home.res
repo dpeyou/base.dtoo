@@ -134,9 +134,9 @@ let make = (~layout: Types.layout, ~page: Types.page, ~theme: Types.theme) => {
           <b style=headingStyles2> {"Full-stack web development"->React.string} </b>
           <ul style=listStyles2>
             <li style=introStyles2>
-              {"The main tools I use for front-end development are JavaScript & ReasonML/Rescript. I built this website using the Rescript-React framework. The backend of this website was written in Rust using the ... framework. You can take a look at the source-code on GitHub, here: "->React.string}
+              {"The main tools I use for front-end development are JavaScript & ReasonML/Rescript. I built this website using the Rescript-React framework. The backend of this website uses NodeJS & you can take a look at the source-code on GitHub, here: "->React.string}
               <a
-                href="https://github.com/dpeyou?tab=repositories"
+                href="https://github.com/dpeyou/base.dtoo/"
                 style=anchorStyles
                 target="_blank">
                 {"Source code"->React.string}
